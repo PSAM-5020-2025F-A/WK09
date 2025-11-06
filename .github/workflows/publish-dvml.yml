@@ -39,11 +39,11 @@ jobs:
 
     - name: Push
       run: |
+        cd ${{ env.REPO }}
+        COMMIT_MSG=${{ env.REPO }}-${{ github.ref_name }}-$(git log --format=%h -1)
         cd dvml
-        GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-8)
         git config --local user.name "github-actions[bot]"
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        COMMIT_MSG=${{ env.REPO }}-${{ github.ref_name }}-$(git log --format=%h -1)
         git add -f ${{ env.REPO }}
         git commit -m $COMMIT_MSG
         git push -f origin main
